@@ -51,4 +51,4 @@ const Post = ({
   )
 }
 
-export const Post;
+export default Post;
