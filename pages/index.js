@@ -5,8 +5,9 @@ import Header from "../components/Header";
 import Login from "../components/Login";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
+import { db } from "../firebase";
 
-const Home = ({ session }) => {
+const Home = ({ session, docs }) => {
   if (!session) return <Login />;
   
   return (
@@ -20,7 +21,7 @@ const Home = ({ session }) => {
       <main className="flex">
         {/* Sidebar */}
         <Sidebar />
-        <Feed />
+        <Feed posts={posts}/>
         <Widgets />
       </main>
     </div>
@@ -30,12 +31,21 @@ const Home = ({ session }) => {
 export const getServerSideProps = async (context) => {
   const session = await getSession(context);
 
+  const posts = await db.collection("posts").orderBy("timestamp", "desc").get();
+
+  const docs = posts.docs.map(post => ({
+    id: post.id,
+    ...post.data(),
+    timestamp: null
+  }));
+
   console.log("session");
   console.log(session);
 
   return {
     props: {
       session,
+      docs,
     },
   };
 };

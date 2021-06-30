@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { ChatAltIcon, ThumbUpIcon, ShareIcon } from "@heroicons/react/outline";
+import Image from "next/image";
 
 const Post = ({
   key,
@@ -15,10 +16,15 @@ const Post = ({
       <div className="p-5 bg-white mt-5 rounded rounded-t-2xl shadow-sm">
         <div className="flex items-center space-x-2">
           <img
-            className="rounded-full" src={image} width={40} height={40} 
+            className="rounded-full" src={image} width={40} height={40} alt=""
           />
           <div>
             <p className="font-medium">{name}</p>
+            {timestamp ? (
+              <p className="text-xs text-gray-400">{new Date(timestamp?.toDate()).toLocaleString()}</p>
+            ) : (
+              <p className="text-xs text-gray-400">Loading</p>
+            )}
             <p className="text-xs text-gray-400">
               {new Date(timestamp?.toDate()).toLocaleString()}
             </p>
@@ -30,7 +36,7 @@ const Post = ({
 
       {postImage && (
         <div className="relative h-56 md:h:96 bg-white">
-          <Image src={postImage} objectFit="cover" layout="fill"/>
+          <Image src={postImage} objectFit="cover" layout="fill" alt=""/>
         </div>
       )}
 
