@@ -2,13 +2,17 @@ import { EmojiHappyIcon } from "@heroicons/react/outline";
 import { CameraIcon, VideoCameraIcon } from "@heroicons/react/solid";
 import { useSession } from "next-auth/client";
 import Image from "next/image";
-import useRef from "react";
+import { useRef, useState } from "react";
 import firebase from "firebase";
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
+import image from "next/image";
+import { Children } from "react/cjs/react.production.min";
 
 const InputBox = () => {
   const [session] = useSession();
   const inputRef = useRef(null);
+  const filePickerRef = useRef(null);
+  const [imageToPost, setImageToPost] = useState(null);
 
   const sendPost = (e) => {
     e.preventDefault();
@@ -21,10 +25,43 @@ const InputBox = () => {
       email: session.user.email,
       image: session.user.image,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    }).then(doc => {
+      if (imageToPost) {
+        const uploadTask = storage.ref(`posts/${doc.id}`).putString(imageToPost, "data_url");
 
-    inputRef.current.value = "";
-  };
+        removeImage();
+
+        uploadTask.on("state_change", null, error => console.log(err), () => {
+          // when the upload completes
+          // storage.ref(`posts`).child(doc.id).getDownloadURL().then();
+          storage.ref(`posts/${doc.id}`).getDownloadURL().then(url => {
+            db.collection("posts").doc(doc.id).set({
+              postImage: url,
+            }, {
+              merge: true
+            })
+          });
+
+        });
+      };
+
+      inputRef.current.value = "";
+  });
+
+  const addImageToPost = (e) => {
+    const reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    };
+
+    reader.onload = (readerEvent) => {
+      setImageToPost(readerEvent.target.result);
+    };
+  }
+
+  const removeImage = () => {
+    setImageToPost(null);
+  }
 
   return (
     <div className="bg-white p-2 rounded-2xl shadow-md text-gray-500 font-medium mt-6">
@@ -43,8 +80,15 @@ const InputBox = () => {
             ref={inputRef}
             placeholder={`What's on your mind, ${session.user.name}?`}
           />
-        </form>
         <button hidden type="submit" onClick={sendPost}>Submit</button>
+        </form>
+
+        {imageToPost && (
+          <div onClick={removeImage} className="flex flex-col hover:brightness-110 transition duration-150 transform hover:scale-105 cursor-pointer">
+            <img className="h-10 object-contain" src={imageToPost} alt="" />
+            <p className="text-xs text-red-500 text-center">Remove</p>
+          </div>
+        )}
       </div>
 
       <div className="flex justify-evenly p-3 border-t">
@@ -53,9 +97,10 @@ const InputBox = () => {
           <p className="text-xs sm:text-sm xl:text-base">Live Video</p>
         </div>
         
-        <div className="inputIcon">
+        <div onClick={()=>filePickerRef.current.click()} className="inputIcon">
           <CameraIcon className="h-7 text-green-400" />
           <p className="text-xs sm:text-sm xl:text-base">Photo/Video</p>
+          <input type="file" ref={filePickerRef} onChange={addImageToPost} hidden/>
         </div>
 
         <div className="inputIcon">
