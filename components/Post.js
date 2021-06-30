@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ChatAltIcon, ThumbUpIcon, ShareIcon } from "@heroicons/react/outline";
 
 const Post = ({

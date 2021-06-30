@@ -4,6 +4,7 @@ import Feed from "../components/Feed";
 import Header from "../components/Header";
 import Login from "../components/Login";
 import Sidebar from "../components/Sidebar";
+import Widgets from "../components/Widgets";
 
 const Home = ({ session }) => {
   if (!session) return <Login />;
@@ -20,7 +21,7 @@ const Home = ({ session }) => {
         {/* Sidebar */}
         <Sidebar />
         <Feed />
-        {/* Widgets */}
+        <Widgets />
       </main>
     </div>
   );
