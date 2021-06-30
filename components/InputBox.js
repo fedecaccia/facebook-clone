@@ -46,7 +46,8 @@ const InputBox = () => {
       };
 
       inputRef.current.value = "";
-  });
+    });
+  };
 
   const addImageToPost = (e) => {
     const reader = new FileReader();
