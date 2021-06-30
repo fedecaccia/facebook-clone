@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { EmojiHappyIcon } from "@heroicons/react/outline";
 import { CameraIcon, VideoCameraIcon } from "@heroicons/react/solid";
 import { useSession } from "next-auth/client";
