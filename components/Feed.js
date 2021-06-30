@@ -1,5 +1,6 @@
 import InputBox from "./InputBox";
 import Stories from "./Stories";
+import Posts from "./Posts";
 
 const Feed = () => {
   const a = 1;
@@ -9,7 +10,7 @@ const Feed = () => {
       <div className="mx-auto max-w-md md:max-w-lg lg:max-w-2xl">
         <Stories />
         <InputBox />
-        {/* Posts */}
+        <Posts />
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ const Login = () => (
       height={400}
       width={400}
       objectFit="contain"
+      alt=""
     />
     <h1
       onClick={signIn}
