@@ -25,6 +25,10 @@ const InputBox = () => {
       image: session.user.image,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     }).then(doc => {
+
+      console.log("image to post")
+      console.log(imageToPost)
+      console.log(doc)
       if (imageToPost) {
         console.log("image to post")
         const uploadTask = storage.ref(`posts/${doc.id}`).putString(imageToPost, "data_url");
