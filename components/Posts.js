@@ -1,4 +1,5 @@
 import Post from "./Post";
+import { db } from "../firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
 
 const Posts = ({ posts }) => {
