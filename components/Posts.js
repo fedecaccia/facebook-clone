@@ -4,7 +4,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 
 const Posts = ({ posts }) => {
   const [realtimePosts, loeading, error] = useCollection(
-    db.collection(("posts").orderBy("timestamp", "desc"))
+    db.collection("posts").orderBy("timestamp", "desc")
   );
 
   return (
