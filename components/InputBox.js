@@ -33,10 +33,10 @@ const InputBox = () => {
 
         removeImage();
 
-        uploadTask.on("state_change", null, error => console.log(err), () => {
+        uploadTask.on("state_change", null, (error) => console.log(error), () => {
           // when the upload completes
-          // storage.ref(`posts`).child(doc.id).getDownloadURL().then();
-          storage.ref(`posts/${doc.id}`).getDownloadURL().then(url => {
+          // storage.ref(`posts/${doc.id}`).getDownloadURL().then(url => {
+          storage.ref(`posts`).child(doc.id).getDownloadURL().then(url => {
             db.collection("posts").doc(doc.id).set({
               postImage: url,
             }, {
@@ -84,7 +84,7 @@ const InputBox = () => {
             ref={inputRef}
             placeholder={`What's on your mind, ${session.user.name}?`}
           />
-        <button  type="submit" onClick={sendPost}>Submit</button>
+          <button hidden type="submit" onClick={sendPost}>Submit</button>
         </form>
 
         {imageToPost && (
