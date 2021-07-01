@@ -6,8 +6,6 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import firebase from "firebase";
 import { db, storage } from "../firebase";
-import image from "next/image";
-import { Children } from "react/cjs/react.production.min";
 
 const InputBox = () => {
   const [session] = useSession();
