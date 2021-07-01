@@ -26,14 +26,18 @@ const InputBox = () => {
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     }).then(doc => {
       if (imageToPost) {
+        console.log("image to post")
         const uploadTask = storage.ref(`posts/${doc.id}`).putString(imageToPost, "data_url");
+        console.log("image to post 2")
 
         removeImage();
 
         uploadTask.on("state_change", null, (error) => console.log(error), () => {
+          console.log("image to post 3")
           // when the upload completes
           // storage.ref(`posts/${doc.id}`).getDownloadURL().then(url => {
           storage.ref(`posts`).child(doc.id).getDownloadURL().then(url => {
+            console.log("image to post 4")
             db.collection("posts").doc(doc.id).set({
               postImage: url,
             }, {
