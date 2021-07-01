@@ -53,7 +53,8 @@ const InputBox = () => {
       };
 
       inputRef.current.value = "";
-    });
+    })
+    .catch(console.log)
   };
 
   const addImageToPost = (e) => {
