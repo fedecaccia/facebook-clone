@@ -33,7 +33,7 @@ export const getServerSideProps = async (context) => {
 
   const posts = await db.collection("posts").orderBy("timestamp", "desc").get();
 
-  const docs = posts.map(post => ({
+  const docs = posts.docs?.map(post => ({
     id: post.id,
     ...post.data(),
     timestamp: null
