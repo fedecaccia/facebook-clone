@@ -18,6 +18,9 @@ const InputBox = () => {
 
     if (!inputRef.current.value) return;
 
+    console.log("image to post 00")
+    console.log(imageToPost)
+
     db.collection("posts").add({
       message: inputRef.current.value,
       name: session.user.name,
