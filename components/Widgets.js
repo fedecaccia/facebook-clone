@@ -10,7 +10,7 @@ const contacts = [
   { src: "https://links.papareact.com/d0c", name: "Harry Potter" },
   { src: "https://links.papareact.com/6gg", name: "The Queen" },
   { src: "https://links.papareact.com/r57", name: "James Bond" }
-]
+];
 
 function Widgets() {
   return (
@@ -24,13 +24,13 @@ function Widgets() {
         </div>
       </div>
 
-      {contacts.map(contact => {
+      {contacts.map(contact => (
         <Contact
           key={contact.src}
           src={contact.src}
           name={contact.name}
         />
-      })}
+      ))}
     </div>
   )
 }
