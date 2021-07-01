@@ -81,6 +81,7 @@ const InputBox = () => {
             ref={inputRef}
             placeholder={`What's on your mind, ${session.user.name}?`}
           />
+          {/* <button type="submit" onClick={sendPost}>Submit</button> */}
           <button hidden type="submit" onClick={sendPost}>Submit</button>
         </form>
 
