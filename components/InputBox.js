@@ -16,9 +16,6 @@ const InputBox = () => {
   const sendPost = (e) => {
     e.preventDefault();
 
-    console.log("sendPost")
-    console.log(inputRef.current.value)
-
     if (!inputRef.current.value) return;
 
     db.collection("posts").add({
