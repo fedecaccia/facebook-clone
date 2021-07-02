@@ -25,9 +25,6 @@ const Post = ({
             ) : (
               <p className="text-xs text-gray-400">Loading</p>
             )}
-            <p className="text-xs text-gray-400">
-              {new Date(timestamp?.toDate()).toLocaleString()}
-            </p>
           </div>
         </div>
 
